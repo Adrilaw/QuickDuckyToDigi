@@ -99,11 +99,13 @@ td {
 /* Notification styles */
 /* Existing styles */
 
+/* Existing styles */
+
 .notification {
     display: none;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 20px; /* Adjust this value to move the notification up or down */
+    right: 20px;  /* Adjust this value to move the notification left or right */
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
@@ -113,10 +115,12 @@ td {
     z-index: 1000;
     display: flex;
     align-items: center;
+    gap: 10px; /* Space between tick and text */
 }
 
 .tick {
+    font-size: 20px; /* Adjust size of the tick symbol */
     margin-right: 10px;
-    font-size: 20px;
 }
+
 
