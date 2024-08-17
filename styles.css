@@ -50,12 +50,13 @@ h2 {
 textarea {
     width: 100%;
     height: 200px;
-    margin: 10px 0;
+    margin-bottom: 10px; /* Space between textareas */
     padding: 10px;
     border: 1px solid #333;
     border-radius: 5px;
     background-color: #000;
     color: #fff;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
 button {
@@ -83,3 +84,14 @@ footer p {
     margin: 10px 0;
 }
 
+/* Additional styles for layout */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0; /* Ensure no extra spacing by default */
+}
+
+td {
+    padding: 10px; /* Padding inside table cells */
+    vertical-align: top; /* Align content to the top */
+}
