@@ -122,9 +122,9 @@
         // Function to show the notification
         function showNotification() {
             const notification = document.getElementById("notification");
-            notification.style.display = 'flex'; // Use flex to show the notification
+            notification.classList.add('show'); // Use class to show the notification
             setTimeout(() => {
-                notification.style.display = 'none'; // Hide after 2 seconds
+                notification.classList.remove('show'); // Hide after 2 seconds
             }, 2000);
         }
     </script>
