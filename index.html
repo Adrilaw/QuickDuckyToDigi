@@ -16,8 +16,9 @@
         function redirectToMobileIfNeeded() {
             if (isMobileDevice()) {
                 var currentPage = window.location.pathname;
-                if (currentPage !== '/mobile.html') { // Avoid redirect loop
-                    window.location.href = '/mobile.html';
+                var mobilePage = '/quickducky2digi/mobile.html'; // Ensure correct path
+                if (currentPage !== mobilePage) { // Avoid redirect loop
+                    window.location.href = mobilePage;
                 }
             }
         }
