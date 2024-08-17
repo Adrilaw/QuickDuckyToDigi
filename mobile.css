@@ -1,63 +1,45 @@
 /* mobile.css */
 
-body {
-    font-family: Arial, sans-serif;
+/* Ensure the body takes up the full viewport height */
+html, body {
+    height: 100%;
     margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-    color: #333;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
 }
 
 .container {
-    width: 90%;
-    margin: auto;
-    padding: 1em;
+    padding: 10px;
 }
 
 header {
     background: #333;
     color: #fff;
-    padding: 1em;
+    padding: 10px;
     text-align: center;
 }
 
 header h1 {
     font-size: 1.5em;
-    margin: 0;
-}
-
-header p {
-    margin: 0.5em 0;
 }
 
 main {
-    padding: 1em;
-}
-
-.converter {
-    background: #fff;
-    padding: 1em;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
 }
 
 textarea {
     width: 100%;
-    height: 150px;
-    padding: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    height: 100px;
     box-sizing: border-box;
 }
 
 button {
-    padding: 0.5em 1em;
-    margin-right: 0.5em;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 4px;
-    background: #007BFF;
-    color: white;
     cursor: pointer;
 }
 
@@ -67,48 +49,18 @@ button:hover {
 
 footer {
     text-align: center;
-    padding: 1em;
+    padding: 10px;
     background: #333;
     color: #fff;
 }
 
 .notification {
     display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
     background: #28a745;
     color: #fff;
-    padding: 1em;
+    padding: 10px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    align-items: center;
-    justify-content: center;
-    display: flex;
-}
-
-.notification .tick {
-    font-size: 1.5em;
-    margin-right: 0.5em;
-}
-
-/* Media queries for small devices */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 1.2em;
-    }
-
-    textarea {
-        height: 100px;
-    }
-
-    button {
-        padding: 0.4em 0.8em;
-        font-size: 0.9em;
-    }
-
-    .notification {
-        bottom: 10px;
-        right: 10px;
-    }
 }
