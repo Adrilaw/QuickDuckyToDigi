@@ -6,6 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <script src="QuickDucky2Digi.js" defer></script>
+    <script>
+        // Function to check if the device is mobile
+        function isMobileDevice() {
+            return /Mobi|Android/i.test(navigator.userAgent);
+        }
+
+        // Function to handle redirection
+        function redirectToMobileIfNeeded() {
+            if (isMobileDevice()) {
+                var currentPage = window.location.pathname;
+                if (currentPage !== '/mobile.html') { // Avoid redirect loop
+                    window.location.href = '/mobile.html';
+                }
+            }
+        }
+
+        // Execute redirection function when the page loads
+        window.onload = redirectToMobileIfNeeded;
+    </script>
 </head>
 <body>
     <div class="container">
