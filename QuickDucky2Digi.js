@@ -1,3 +1,4 @@
+
 function QuickDucky2Digi(inp, opts={}) {
     let loop       = opts.loop         !== undefined ?  opts.loop         : false;
     let flash_str  = opts.no_flash_str !== undefined ? !opts.no_flash_str : true;
@@ -115,7 +116,7 @@ function QuickDucky2Digi(inp, opts={}) {
     let res = "";
 
     res += '#include "DigiKeyboard.h"\n\n';
-    res += "// ";
+     res += "// Converted using https://github.com/Adrilaw/quickducky2digi";
     if (loop) {
         res += "void setup() {}\n\n";
         res += "void loop() {\n";
@@ -243,7 +244,7 @@ if (typeof(process) != "undefined") {
     function help() {
         const bin = process.argv[1].split("/").pop();
         console.log(`usage: ${bin} [OPTION]... [FILE]`);
-        console.log("Convert DuckyScripts to Digistump Arduino sketck");
+        console.log("Convert DuckyScripts to Digistump Arduino sketch");
         console.log("optional arguments:");
         console.log("  -h, --help          show this help message and exit");
         console.log("  -l, --loop          keep repeating the payload");
@@ -298,7 +299,7 @@ if (typeof(process) != "undefined") {
         const opts = {loop, no_flash_str, init_delay};
         let out;
         try {
-            out = ducky2digi(inp, opts);
+            out =QuickDucky2Digi(inp, opts);
             console.log(out);
         } catch (e) {
             console.error(e.toString());
