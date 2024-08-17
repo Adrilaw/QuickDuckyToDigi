@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickDucky2Digi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile.css"> <!-- Add this line -->
+    <script src="QuickDucky2Digi.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>QuickDucky2Digi</h1>
+            <p>Convert <a href="https://shop.hak5.org/products/usb-rubber-ducky" target="_blank">Rubber-Ducky</a> scripts to <a href="https://www.hackerstore.nl/Artikel/363" target="_blank">Digispark</a> Arduino sketches</p>
+            <p>By <a href="https://github.com/Adrilaw" target="_blank">Adrien Dodin</a> - Source at <a href="https://github.com/Adrilaw/quickducky2digi" target="_blank">GitHub</a></p>
+        </header>
+        <main>
+            <section class="converter">
+                <table>
+                    <tr>
+                        <td><h2>Rubber-Ducky payload (input)</h2></td>
+                        <td><h2>Digispark sketch (output)</h2></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea id="inp" placeholder="Enter your DuckyScript here..."></textarea>
+                        </td>
+                        <td>
+                            <textarea id="out" readonly placeholder="Converted sketch will appear here..."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" id="no-flash">
+                            <label for="no-flash">Prevent storing strings in flash</label>
+                        </td>
+                        <td>
+                            <button onclick="run()">CONVERT</button>
+                            <button onclick="copy()">COPY OUTPUT</button>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2024 Adrien Dodin. All rights reserved.</p>
+        </footer>
+    </div>
+    <!-- Notification Element -->
+    <div id="notification" class="notification">
+        <span class="tick">&#10003;</span> Copied to clipboard!
+    </div>
+    <script>
+        // Function to copy text to clipboard
+        function copyTextToClipboard(text) {
+            if (!navigator.clipboard) {
+                var textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    var successful = document.execCommand('copy');
+                    console.log('Fallback: Copying text command was ' + (successful ? 'successful' : 'unsuccessful'));
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                console.log('Async: Copying to clipboard was successful!');
+            }, err => {
+                console.error('Async: Could not copy text: ', err);
+            });
+        }
+
+        // Function to run the conversion
+        function run() {
+            const inp = document.getElementById("inp").value;
+            const opts = {
+                no_flash_str: document.getElementById("no-flash").checked
+            };
+
+            let out;
+            try {
+                out = QuickDucky2Digi(inp, opts); // Ensure QuickDucky2Digi is defined in your external JS file
+            } catch (e) {
+                out = e;
+            }
+            document.getElementById("out").value = out;
+        }
+
+        // Function to copy output text
+        function copy() {
+            const outputText = document.getElementById("out").value;
+            copyTextToClipboard(outputText);
+            showNotification(); // Show notification after copying
+        }
+
+        // Function to show the notification
+        function showNotification() {
+            const notification = document.getElementById("notification");
+            notification.style.display = 'flex'; // Use flex to show the notification
+            setTimeout(() => {
+                notification.style.display = 'none'; // Hide after 2 seconds
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
