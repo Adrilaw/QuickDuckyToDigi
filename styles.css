@@ -120,38 +120,12 @@ td {
     margin-right: 10px;
 }
 
-/* Class to show the notification */
-.notification.show {
-    display: flex; /* Override the default hidden display */
-}
-
-/* Media queries for responsive design */
-@media (max-width: 600px) {
-    /* Adjust container width for smaller screens */
-    .container {
-        padding: 10px;
-    }
-
-    header h1 {
-        font-size: 1.8em;
-    }
-
-    textarea {
-        height: 120px; /* Reduced height for smaller screens */
-        font-size: 0.9em; /* Slightly smaller text */
-    }
-
-    button {
-        padding: 8px 10px;
-        font-size: 14px;
-    }
-
-   /* Notification styles */
+/* Notification styles */
 .notification {
-    display: none; /* Ensure it's hidden by default */
+    display: none; /* Hidden by default */
     position: fixed;
-    bottom: 20px; /* Adjust this value to move the notification up or down */
-    right: 20px;  /* Adjust this value to move the notification left or right */
+    bottom: 20px;
+    right: 20px;
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
@@ -163,6 +137,7 @@ td {
     align-items: center;
     gap: 10px; /* Space between tick and text */
     transition: opacity 0.5s ease-in-out; /* Smooth transition */
+    opacity: 0; /* Ensure it's invisible by default */
 }
 
 .tick {
@@ -172,6 +147,6 @@ td {
 
 /* Class to show the notification */
 .notification.show {
-    display: flex; /* Override the default hidden display */
+    display: flex; /* Show the notification */
     opacity: 1;
 }
