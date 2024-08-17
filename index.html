@@ -47,6 +47,7 @@
         </footer>
     </div>
     <script>
+        // Function to copy text to clipboard
         function copyTextToClipboard(text) {
             if (!navigator.clipboard) {
                 var textArea = document.createElement("textarea");
@@ -68,27 +69,10 @@
                 console.log('Async: Copying to clipboard was successful!');
             }, err => {
                 console.error('Async: Could not copy text: ', err);
-            });<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>QuickDucky2Digi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <script src="ducky2digi.js" defer></script>
-</head>
-<body>
-…        }
-
-        function copy() {
-            copyTextToClipboard(document.getElementById("out").value);
-        }
-    </script>
-</body>
-</html>
-
+            });
         }
 
+        // Function to run the conversion
         function run() {
             const inp = document.getElementById("inp").value;
             const opts = {
@@ -97,17 +81,17 @@
 
             let out;
             try {
-                out =QuickDucky2Digi(inp, opts);
+                out = QuickDucky2Digi(inp, opts); // Ensure QuickDucky2Digi is defined in your external JS file
             } catch (e) {
                 out = e;
             }
             document.getElementById("out").value = out;
         }
 
+        // Function to copy output text
         function copy() {
             copyTextToClipboard(document.getElementById("out").value);
         }
     </script>
 </body>
 </html>
-
