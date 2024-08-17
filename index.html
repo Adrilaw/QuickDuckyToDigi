@@ -46,6 +46,10 @@
             <p>&copy; 2024 Adrien Dodin. All rights reserved.</p>
         </footer>
     </div>
+    <!-- Notification Element -->
+    <div id="notification" class="notification">
+        <span class="tick">&#10003;</span> Copied to clipboard!
+    </div>
     <script>
         // Function to copy text to clipboard
         function copyTextToClipboard(text) {
@@ -81,7 +85,7 @@
 
             let out;
             try {
-                out =QuickDucky2Digi(inp, opts); // Ensure QuickDucky2Digi is defined in your external JS file
+                out = QuickDucky2Digi(inp, opts); // Ensure QuickDucky2Digi is defined in your external JS file
             } catch (e) {
                 out = e;
             }
@@ -91,6 +95,16 @@
         // Function to copy output text
         function copy() {
             copyTextToClipboard(document.getElementById("out").value);
+            showNotification();
+        }
+
+        // Function to show the notification
+        function showNotification() {
+            const notification = document.getElementById("notification");
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000); // Hide notification after 2 seconds
         }
     </script>
 </body>
