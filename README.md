@@ -13,6 +13,11 @@ QuickDucky2Digi is a tool for converting DuckyScript payloads into digital forma
 
 https://adrilaw.github.io/quickducky2digi/
 
+# Author
+Adrilaw @ GitHub
+
+Kidpentester @ xda-developers
+
 ## License
 
 This project is licensed under the [GNU General Public License (GPL)](LICENSE) - see the [LICENSE](LICENSE) file for details.
