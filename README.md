@@ -19,7 +19,7 @@ Adrilaw @ GitHub
 Kidpentester @ xda-developers
 
 # Idea 
-@Naheel-Azawy
+@ Naheel-Azawy
 
 ## License
 
