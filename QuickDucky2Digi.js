@@ -1,4 +1,3 @@
-
 function QuickDucky2Digi(inp, opts={}) {
     let loop       = opts.loop         !== undefined ?  opts.loop         : false;
     let flash_str  = opts.no_flash_str !== undefined ? !opts.no_flash_str : true;
@@ -55,35 +54,27 @@ function QuickDucky2Digi(inp, opts={}) {
 
     const NOT_IMPL = [
         "ATTACKMODE",
-
         "WAIT_FOR_BUTTON_PRESS",
         "BUTTON_DEF",
         "ENABLE_BUTTON",
         "DISABLE_BUTTON",
-
         "LED_R",
         "LED_G",
         "LED_OFF",
-
         "HOLD",
         "RELEASE",
         "RESET",
-
         "IF",
         "WHILE",
-
         "FUNCTION",
         "EXTENSION",
         "DEFINE",
-
         "SAVE_HOST_KEYBOARD_LOCK_STATE",
         "RESTORE_HOST_KEYBOARD_LOCK_STATE",
-
         "RANDOM_NUMBER",
         "RANDOM_CHARACTER",
         "RANDOM_LOWERCASE_LETTER",
         "RANDOM_SPECIAL",
-
         "WAIT_FOR_STORAGE_INACTIVITY",
         "HIDE_PAYLOAD",
         "RESTART_PAYLOAD",
@@ -112,11 +103,11 @@ function QuickDucky2Digi(inp, opts={}) {
     }
 
     let vars = {};
-
     let res = "";
 
-    rres += '#include "DigiKeyboard.h"\n\n';
+    res += '#include "DigiKeyboard.h"\n\n';
     res += "// Converted using https://adrilaw.github.io/quickducky2digi\n\n";
+
     if (loop) {
         res += "void setup() {}\n\n";
         res += "void loop() {\n";
@@ -130,23 +121,23 @@ function QuickDucky2Digi(inp, opts={}) {
         res += "  DigiKeyboard.delay(" + init_delay + ");\n";
     }
 
-    // the default delay if specified by user
+    // The default delay if specified by user
     let def_delay = 0;
 
-    // last command. used if repeat was used
+    // Last command used if repeat was used
     let last_cmd;
 
-    // main loop
+    // Main loop
     let i = 0;
     for (let line of inp.split("\n")) {
         ++i;
         line = line.trim();
-        if (line.length == 0) { // skip empty lines
+        if (line.length === 0) { // Skip empty lines
             continue;
         }
         let space = line.indexOf(" ");
         let cmd, arg;
-        if (space != -1) {
+        if (space !== -1) {
             cmd = line.substring(0, space).trim();
             arg = line.substring(space + 1).trim();
         } else {
@@ -157,16 +148,16 @@ function QuickDucky2Digi(inp, opts={}) {
         if (NOT_IMPL.includes(cmd)) {
             err(`'${cmd}' is not implemented yet`);
 
-        } else if (cmd == "DEFAULTDELAY" || cmd == "DEFAULT_DELAY") {
+        } else if (cmd === "DEFAULTDELAY" || cmd === "DEFAULT_DELAY") {
             def_delay = Number(arg);
             continue;
 
-        } else if (cmd == "REM") {
+        } else if (cmd === "REM") {
             res += "  // " + arg + "\n";
             continue;
 
-        } else if (cmd == "STRING" || cmd == "STRINGLN") {
-            if (cmd == "STRINGLN") {
+        } else if (cmd === "STRING" || cmd === "STRINGLN") {
+            if (cmd === "STRINGLN") {
                 last_cmd = "DigiKeyboard.println(";
             } else {
                 last_cmd = "DigiKeyboard.print(";
@@ -174,27 +165,27 @@ function QuickDucky2Digi(inp, opts={}) {
             if (flash_str) {
                 last_cmd += "F(";
             }
-            last_cmd += JSON.stringify(arg) + ")"; // escape chars
+            last_cmd += JSON.stringify(arg) + ")"; // Escape characters
             if (flash_str) {
                 last_cmd += ")";
             }
             last_cmd += ";";
             res += "  " + last_cmd + "\n";
 
-        } else if (cmd == "DELAY") {
+        } else if (cmd === "DELAY") {
             last_cmd = "DigiKeyboard.delay(" + arg + ");";
             res += "  " + last_cmd + "\n";
 
-        } else if (cmd == "REPEAT") {
+        } else if (cmd === "REPEAT") {
             res += "  for (int i = 0; i < " + arg + "; ++i)\n";
             res += "    " + last_cmd + "\n";
 
         } else {
             // Variables
-            if (cmd == "VAR" ||
+            if (cmd === "VAR" ||
                 (cmd.startsWith("$") && arg && arg.startsWith("="))) {
                 let name, val;
-                if (cmd == "VAR") {
+                if (cmd === "VAR") {
                     arg = arg.split("=");
                     name = arg[0].trim().substring(1);
                     val = arg[1].trim();
@@ -202,8 +193,8 @@ function QuickDucky2Digi(inp, opts={}) {
                     name = cmd.substring(1);
                     val = arg.split("=")[1].trim();
                 }
-                if (val == "TRUE")  val = 1;
-                if (val == "FALSE") val = 0;
+                if (val === "TRUE")  val = 1;
+                if (val === "FALSE") val = 0;
                 if (vars[name]) {
                     res += `  ${name} = ${val};\n`;
                 } else {
@@ -212,20 +203,19 @@ function QuickDucky2Digi(inp, opts={}) {
                 }
 
             // Keys
-            } else if (arg != undefined) { // MOD key is used
+            } else if (arg !== undefined) { // MOD key is used
                 const mod = MAP[cmd];
                 const key = get_key(arg);
                 if (!mod) nope(i, cmd);
                 if (!key) nope(i, arg);
-                res += "  DigiKeyboard.sendKeyStroke(" + key + ", " +
-                    mod + ");\n";
+                res += "  DigiKeyboard.sendKeyStroke(" + key + ", " + mod + ");\n";
             } else {
                 const key = get_key(cmd);
                 if (!key) nope(i, cmd);
                 res += "  DigiKeyboard.sendKeyStroke(" + key + ");\n";
             }
         }
-        if (def_delay != 0) {
+        if (def_delay !== 0) {
             res += "  DigiKeyboard.delay(" + def_delay + ");\n";
         }
     }
@@ -235,7 +225,7 @@ function QuickDucky2Digi(inp, opts={}) {
     return res;
 }
 
-if (typeof(process) != "undefined") {
+if (typeof(process) !== "undefined") {
     const fs            = require("fs");
     const os            = require("os");
     const path          = require("path");
@@ -268,67 +258,63 @@ if (typeof(process) != "undefined") {
         case "-l": case "--loop":         loop         = true; break;
         case "-f": case "--no-flash-str": no_flash_str = true; break;
         case "-d": case "--init-delay":
-            if (i + 1 < process.argv.length) {
-                init_delay = process.argv[++i];
+            if (++i < process.argv.length) {
+                init_delay = Number(process.argv[i]);
+                if (isNaN(init_delay)) {
+                    console.log("Invalid init-delay value");
+                    process.exit(1);
+                }
             } else {
-                help();
+                console.log("Missing init-delay value");
+                process.exit(1);
             }
             break;
         default:
-            if (process.argv[i].startsWith("-")) {
-                console.error(`Error: unknown option ${process.argv[i]}`);
-                help();
+            if (inp_file === undefined) {
+                inp_file = process.argv[i];
             } else {
                 extra_args.push(process.argv[i]);
             }
         }
     }
 
-    if (extra_args.length > 1) {
+    if (inp_file === undefined) {
+        console.log("Input file not specified");
         help();
-    } else if (extra_args.length == 1) {
-        if (fs.existsSync(extra_args[0])) {
-            inp_file = extra_args[0];
-        } else {
-            console.error(`Error: '${extra_args[0]}' is not a file`);
-            help();
-        }
     }
 
-    function run(inp) {
-        const opts = {loop, no_flash_str, init_delay};
-        let out;
-        try {
-            out =QuickDucky2Digi(inp, opts);
-            console.log(out);
-        } catch (e) {
-            console.error(e.toString());
-            return;
-        }
-
-        if (upload) {
-            const d = fs.mkdtempSync(path.join(os.tmpdir(), "ducky2digi-"));
-            fs.mkdirSync(path.join(d, "src"));
-            fs.writeFileSync(path.join(d, "src", "main.ino"), out);
-            fs.writeFileSync(path.join(d, "platformio.ini"),
-                             "[env:digispark-tiny]\n"   +
-                             "platform = atmelavr\n"    +
-                             "board = digispark-tiny\n" +
-                             "framework = arduino");
-            child_process.spawnSync("pio", ["run", "-t", "upload", "-d", d],
-                                    {stdio: "inherit"});
-            fs.rmSync(d, {recursive: true, force: true});
-        }
+    let inp;
+    try {
+        inp = fs.readFileSync(inp_file, "utf8");
+    } catch (err) {
+        console.log(`Error reading input file: ${err.message}`);
+        process.exit(1);
     }
 
-    let inp = "";
-    if (inp_file) {
-        inp = fs.readFileSync(inp_file).toString();
-        run(inp);
+    let code;
+    try {
+        code = QuickDucky2Digi(inp, {
+            loop: loop,
+            no_flash_str: no_flash_str,
+            init_delay: init_delay
+        });
+    } catch (err) {
+        console.log(`Error processing input: ${err.message}`);
+        process.exit(1);
+    }
+
+    if (upload) {
+        const pio = child_process.spawnSync("pio", [
+            "run", 
+            "--target", "upload",
+            "--upload-port", "COMx" // Change COMx to your device port
+        ], { input: code });
+
+        if (pio.status !== 0) {
+            console.log(`Error during upload: ${pio.stderr.toString()}`);
+            process.exit(1);
+        }
     } else {
-        process.stdin.resume();
-        process.stdin.setEncoding("utf8");
-        process.stdin.on("data", line => inp += line);
-        process.stdin.on("end", () => run(inp));
+        console.log(code);
     }
 }
