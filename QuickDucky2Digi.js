@@ -115,9 +115,8 @@ function QuickDucky2Digi(inp, opts={}) {
 
     let res = "";
 
-    res += '#include "DigiKeyboard.h"\n\n';
-     res += "// Converted using https://github.com/Adrilaw/quickducky2digi";
-    
+    rres += '#include "DigiKeyboard.h"\n\n';
+    res += "// Converted using https://adrilaw.github.io/quickducky2digi\n\n";
     if (loop) {
         res += "void setup() {}\n\n";
         res += "void loop() {\n";
