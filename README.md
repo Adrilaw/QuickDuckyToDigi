@@ -18,6 +18,9 @@ Adrilaw @ GitHub
 
 Kidpentester @ xda-developers
 
+# Idea 
+@Naheel-Azawy
+
 ## License
 
 This project is licensed under the [GNU General Public License (GPL)](LICENSE) - see the [LICENSE](LICENSE) file for details.
