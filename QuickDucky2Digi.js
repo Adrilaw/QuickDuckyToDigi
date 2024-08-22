@@ -90,7 +90,7 @@ function QuickDucky2Digi(inp, opts={}) {
     }
 
     function get_key(k) {
-        if (k.length == 1) {
+        if (k.length === 1) {
             return "KEY_" + k.toUpperCase();
         } else {
             let m = k.match(/^F(1?[1-9])$/);
@@ -112,13 +112,13 @@ function QuickDucky2Digi(inp, opts={}) {
         res += "void setup() {}\n\n";
         res += "void loop() {\n";
     } else {
-        res += "void loop() {}\n\n";
         res += "void setup() {\n";
-    }
-
-    res += "  DigiKeyboard.sendKeyStroke(0);\n";
-    if (init_delay > 0) {
-        res += "  DigiKeyboard.delay(" + init_delay + ");\n";
+        res += "  DigiKeyboard.sendKeyStroke(0);\n";
+        if (init_delay > 0) {
+            res += "  DigiKeyboard.delay(" + init_delay + ");\n";
+        }
+        res += "}\n\n";
+        res += "void loop() {}\n\n";
     }
 
     // The default delay if specified by user
@@ -220,7 +220,12 @@ function QuickDucky2Digi(inp, opts={}) {
         }
     }
 
-    res += "}";
+    if (loop) {
+        res += "}\n"; // Closing brace for the loop function
+    } else {
+        res += "}\n"; // Closing brace for the setup function
+        res += "}\n"; // Closing brace for the loop function
+    }
 
     return res;
 }
